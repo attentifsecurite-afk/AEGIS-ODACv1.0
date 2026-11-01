@@ -157,10 +157,6 @@ export default function App() {
   const [isRunning, setIsRunning] = useState(true);
   const logRef = useRef<HTMLDivElement>(null);
 
-  if (!isAuthenticated) {
-    return <LoginScreen onLogin={() => setIsAuthenticated(true)} />;
-  }
-
   // Radar sweep animation
   useEffect(() => {
     const interval = setInterval(() => {
@@ -231,6 +227,11 @@ export default function App() {
 
   const now = new Date();
   const timeStr = now.toLocaleTimeString('fr-FR', { hour12: false });
+
+  // Return conditionnel APRÈS tous les hooks
+  if (!isAuthenticated) {
+    return <LoginScreen onLogin={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <div className="w-screen h-screen flex flex-col overflow-hidden bg-tac-bg relative">
